@@ -17,13 +17,13 @@ pipeline {
 
           }
           steps {
+            unstash 'code'
             sh 'ci/build-app.sh'
             archiveArtifacts 'app/build/libs/'
             sh 'ls'
             deleteDir()
             sh 'ls'
             sh 'skipDefaultCheckout(true)'
-            unstash 'code'
           }
         }
 
@@ -31,8 +31,13 @@ pipeline {
     }
 
     stage('Clone down') {
+      agent {
+        node {
+          label 'host'
+        }
+
+      }
       steps {
-        node(label: 'host')
         stash(excludes: '.git', name: 'code')
       }
     }
