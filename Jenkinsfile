@@ -22,9 +22,18 @@ pipeline {
             sh 'ls'
             deleteDir()
             sh 'ls'
+            sh 'skipDefaultCheckout(true)'
+            unstash 'code'
           }
         }
 
+      }
+    }
+
+    stage('Clone down') {
+      steps {
+        node(label: 'host')
+        stash(excludes: '.git', name: 'code')
       }
     }
 
