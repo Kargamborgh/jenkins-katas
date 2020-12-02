@@ -13,6 +13,7 @@ pipeline {
           agent {
             docker {
               image 'gradle:jdk11'
+              args 'skipDefaultCheckout(true)'
             }
 
           }
@@ -23,7 +24,6 @@ pipeline {
             sh 'ls'
             deleteDir()
             sh 'ls'
-            sh 'skipDefaultCheckout(true)'
           }
         }
 
