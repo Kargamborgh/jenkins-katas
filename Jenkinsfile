@@ -63,6 +63,7 @@ pipeline {
         }
       }
       steps {
+        echo 'either master or pull request'
         sh 'ci/component-test.sh'
       }
     }
